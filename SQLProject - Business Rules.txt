@@ -1,0 +1,9 @@
+Business Rules:
+
+- Create a database for a UNCC run food delivery service similar to something like GrubHub or UberEats.
+- The service will be entirely internal with students functioning as delivery drivers.
+- Deliveries will be made exlusively to locations on campus to campus associates.
+- Each delivery will be tied to a single person, from only one restaurant per order.
+- There will be a $5 flat delivery fee.
+- Total price and delivery driver will be kept track of as well as the time of delivery.
+- Restaurants must be approved in order to be part of the service.
