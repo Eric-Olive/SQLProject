@@ -1,0 +1,13 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Completed_Orders_From_Restaurant`(IN restaurant_name VARCHAR(45))
+BEGIN
+SELECT OrderTable.idOrder,
+	   Restaurant.name,
+       Item.dish, 
+       OrderTable.totalPrice, 
+       OrderTable.status
+FROM Restaurant, OrderTable, Item
+WHERE Restaurant.name = restaurant_name
+AND OrderTable.status = 'COMPLETE'
+AND Restaurant.idRestaurant = Item.idRestaurant
+AND Item.idItem = OrderTable.idItem;
+END

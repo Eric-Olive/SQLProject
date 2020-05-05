@@ -1,0 +1,36 @@
+CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+VIEW `customer_view` AS
+    SELECT 
+        `ordertable`.`idOrder` AS `OrderNumber`,
+        `person`.`name` AS `Deliverer`,
+        `restaurant`.`name` AS `Restaurant`,
+        `item`.`dish` AS `Item`,
+        `deliverylocation`.`location` AS `Location`,
+        `paymentmethod`.`type` AS `PaymentMethod`,
+        `ordertable`.`status` AS `Order Status`
+    FROM
+        ((((((`ordertable`
+        JOIN `person`)
+        JOIN `restaurant`)
+        JOIN `item`)
+        JOIN `deliverylocation`)
+        JOIN `personorder` `po1`)
+        JOIN `paymentmethod`)
+    WHERE
+        ((`po1`.`idPerson` = `person`.`idPerson`)
+            AND (`ordertable`.`idOrder` = `po1`.`idOrder`)
+            AND (`ordertable`.`idItem` = `item`.`idItem`)
+            AND (`item`.`idRestaurant` = `restaurant`.`idRestaurant`)
+            AND (`ordertable`.`idPaymentMethod` = `paymentmethod`.`idPaymentMethod`)
+            AND (`ordertable`.`idDeliveryLocation` = `deliverylocation`.`idDeliveryLocation`)
+            AND (`po1`.`personType` = 'Deliverer')
+            AND `po1`.`idOrder` IN (SELECT 
+                `personorder`.`idOrder`
+            FROM
+                `personorder`
+            WHERE
+                (`personorder`.`idPerson` = 1003)))
+    ORDER BY `ordertable`.`idOrder` DESC
